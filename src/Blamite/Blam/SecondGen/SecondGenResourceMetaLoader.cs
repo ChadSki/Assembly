@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Blamite.Blam.Resources;
 using Blamite.Blam.Resources.Models;
+using Blamite.Blam.Resources.Sounds;
 using Blamite.IO;
 
 namespace Blamite.Blam.SecondGen
@@ -15,10 +13,18 @@ namespace Blamite.Blam.SecondGen
         {
             get { return false; }
         }
+		public bool SupportsSounds
+		{
+			get { return false; }
+		}
 
         public IRenderModel LoadRenderModelMeta(ITag modeTag, IReader reader)
         {
             throw new NotImplementedException();
         }
-    }
+		public ISound LoadSoundMeta(ITag sndTag, IReader reader)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

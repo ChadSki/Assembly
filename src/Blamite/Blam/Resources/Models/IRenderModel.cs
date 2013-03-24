@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Blamite.Blam.Resources.Models
+﻿namespace Blamite.Blam.Resources.Models
 {
-    /// <summary>
-    /// A model which can be drawn on the screen.
-    /// </summary>
+	/// <summary>
+	/// A model which can be drawn on the screen.
+	/// </summary>
     public interface IRenderModel
     {
         /// <summary>

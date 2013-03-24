@@ -4,34 +4,39 @@
 	<revisions>
 		<revision author="-DeToX-" version="1">Created layout of plugin</revision>
 		<revision author="-DeToX-" version="2">Labelled Raw Identifier</revision>
+		<revision author="Xerax" version="3"></revision>
 	</revisions>
-	<bitfield16 name="Flags" offset="0x0" visible="true">
+	<bitfield16 name="Flags" offset="0" visible="True">
 		<bit name="Split into premutations" index="1" />
 		<bit name="3rd Person?" index="10" />
 		<bit name="3rd Person?" index="11" />
 		<bit name="Unknown" index="12" />
 	</bitfield16>
-	<int16 name="Sound Class" offset="0x2" visible="true" />
-	<enum8 name="Format" offset="0x4" visible="true">
+	<int8 name="Sound Class" offset="2" visible="True" />
+	<enum8 name="Sample Rate" offset="3" visible="True">
 		<option name="Mono 22050kbps" value="0x0" />
 		<option name="Stero 44100kbps" value="0x1" />
 		<option name="WMA Specific" value="0x2" />
 	</enum8>
-	<enum8 name="Compression" offset="0x4" visible="true">
+	<enum8 name="Encoding" offset="4" visible="True">
 		<option name="XMA" value="0" />
 		<option name="XBox ADPCM" value="0x1" />
 		<option name="ima adpcm?" value="0x2" />
 		<option name="ogg?" value="0x3" />
 		<option name="WMA" value="0x4" />
 	</enum8>
-	<int16 name="Index to Sound Properties" offset="0x6" visible="true" />
-	<int16 name="Index to Sound Premutations" offset="0x8" visible="true" />
-	<uint8 name="Premutation Chunk Count" offset="0xA" visible="true" />
-	<uint8 name="Unknown" offset="0xB" visible="false" />
-	<int16 name="Unknown" offset="0x6" visible="false" />
-	<int16 name="Index to Combat Dialog Raw" offset="0x8" visible="true" />
-	<int32 name="Unknown" offset="0x10" visible="false" />
-	<undefined name="Unknown" offset="0x14" visible="false" />
-	<int32 name="Raw Identifier" offset="0x18" visible="true" />
-	<undefined name="Unknown" offset="0x1C" visible="false" />
+	<int8 name="Codec Index" offset="5" visible="True" />
+	<int16 name="Playback Index" offset="6" visible="True" />
+	<int8 name="Premutation Chunk Count" offset="8" visible="True" />
+	<int8 name="Unknown" offset="9" visible="False" />
+	<int16 name="Unknown" offset="10" visible="False" />
+	<int16 name="First Pitch Range Index" offset="12" visible="True" />
+	<int8 name="Pitch Range Index" offset="14" visible="True" />
+	<int8 name="Scale Index" offset="15" visible="True" />
+	<int8 name="Promotion Index" offset="16" visible="True" />
+	<int8 name="Custom Playback Index" offset="17" visible="True" />
+	<int16 name="Extra Info Index" offset="18" visible="True" />
+	<int32 name="Unknown" offset="20" visible="False" />
+	<uint32 name="Raw ID" offset="24" visible="True" />
+	<int32 name="Max Playtime" offset="28" visible="True" />
 </plugin>

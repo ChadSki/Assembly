@@ -1,101 +1,104 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <layouts>
-  <!-- Map header (minus version info) -->
-  <layout for="header">
-    <uint32 name="file size" offset="0x8" />
-    <uint32 name="index header address" offset="0x10" />
-    <uint32 name="eof index offset plus string data size" offset="0x14" /> <!-- file size - locale offset magic + string data size -->
-    <uint32 name="virtual size" offset="0x18" />
-    <int16 name="type" offset="0x13C" />
+	<!-- Map header (minus version info) -->
+	<layout for="header">
+		<uint32 name="file size" offset="0x8" />
+		<uint32 name="index header address" offset="0x10" />
+		<uint32 name="eof index offset plus string data size" offset="0x14" /> <!-- file size - locale offset magic + string data size -->
+		<uint32 name="virtual size" offset="0x18" />
+		<int16 name="type" offset="0x13C" />
 
-    <int32 name="string table count" offset="0x158" />
-    <int32 name="string table size" offset="0x15C" />
-    <int32 name="string index table offset" offset="0x160" />
-    <int32 name="string table offset" offset="0x164" />
+		<int32 name="string table count" offset="0x158" />
+		<int32 name="string table size" offset="0x15C" />
+		<int32 name="string index table offset" offset="0x160" />
+		<int32 name="string table offset" offset="0x164" />
     
-    <asciiz name="internal name" offset="0x18C" />
-    <asciiz name="scenario name" offset="0x1B0" />
+		<asciiz name="internal name" offset="0x18C" />
+		<asciiz name="scenario name" offset="0x1B0" />
 
-    <int32 name="file table count" offset="0x2B4" />
-    <int32 name="file table offset" offset="0x2B8" />
-    <int32 name="file table size" offset="0x2BC" />
-    <int32 name="file index table offset" offset="0x2C0" />
+		<int32 name="file table count" offset="0x2B4" />
+		<int32 name="file table offset" offset="0x2B8" />
+		<int32 name="file table size" offset="0x2BC" />
+		<int32 name="file index table offset" offset="0x2C0" />
     
-    <uint32 name="virtual base address" offset="0x2E8" />
-    <uint32 name="xdk version" offset="0x2EC" />
-    <array name="partitions" offset="0x2F0" count="6" entrySize="0x8">
-      <uint32 name="load address" offset="0x0" />
-      <uint32 name="size" offset="0x4" />
-    </array>
-    <uint32 name="raw table offset" offset="0x470" />
-    <uint32 name="locale offset magic" offset="0x478" />
-	  <uint32 name="string offset magic" offset="0x47C" />
-	  <uint32 name="string data size" offset="0x480" />
-    <uint32 name="raw table size" offset="0x488" />
-    <uint32 name="eof index offset plus string data size" offset="0x14" /> <!-- file size - locale offset magic + string data size -->
-    <uint32 name="virtual size" offset="0x490" />
-	  <uint32 name="locale data index offset" offset="0x494" />
-	  <uint32 name="locale data size" offset="0x498" />
-  </layout>
+		<uint32 name="virtual base address" offset="0x2E8" />
+		<uint32 name="xdk version" offset="0x2EC" />
+		<array name="partitions" offset="0x2F0" count="6" entrySize="0x8">
+			<uint32 name="load address" offset="0x0" />
+			<uint32 name="size" offset="0x4" />
+		</array>
+		<uint32 name="raw table offset" offset="0x470" />
+		<uint32 name="locale offset magic" offset="0x478" />
+		<uint32 name="string offset magic" offset="0x47C" />
+		<uint32 name="string data size" offset="0x480" />
+		<uint32 name="raw table size" offset="0x488" />
+		<uint32 name="eof index offset plus string data size" offset="0x14" /> <!-- file size - locale offset magic + string data size -->
+		<uint32 name="virtual size" offset="0x490" />
+		<uint32 name="locale data index offset" offset="0x494" />
+		<uint32 name="locale data size" offset="0x498" />
+	</layout>
 
-  <!-- Index table header -->
-  <layout for="index header">
-    <int32 name="number of classes" offset="0x0" />
-    <uint32 name="class table address" offset="0x4" />
-    <int32 name="number of tags" offset="0x8" />
-    <uint32 name="tag table address" offset="0xC" />
-    <int32 name="number of important classes" offset="0x10" />
-    <uint32 name="important class table address" offset="0x14" />
-    <int32 name="magic" offset="0x24" />
-  </layout>
+	<!-- Index table header -->
+	<layout for="index header">
+		<int32 name="number of classes" offset="0x0" />
+		<uint32 name="class table address" offset="0x4" />
+		<int32 name="number of tags" offset="0x8" />
+		<uint32 name="tag table address" offset="0xC" />
+		<int32 name="number of important classes" offset="0x10" />
+		<uint32 name="important class table address" offset="0x14" />
+		<int32 name="magic" offset="0x24" />
+	</layout>
 
-  <!-- Class table entry -->
-  <layout for="class entry">
-    <int32 name="magic" offset="0x0" />
-    <int32 name="parent magic" offset="0x4" />
-    <int32 name="grandparent magic" offset="0x8" />
-    <uint32 name="stringid" offset="0xC" />
-  </layout>
+	<!-- Class table entry -->
+	<layout for="class entry">
+		<int32 name="magic" offset="0x0" />
+		<int32 name="parent magic" offset="0x4" />
+		<int32 name="grandparent magic" offset="0x8" />
+		<uint32 name="stringid" offset="0xC" />
+	</layout>
 
-  <!-- Tag table entry -->
-  <layout for="tag entry">
-    <int16 name="class index" offset="0x0" />
-    <uint16 name="datum index salt" offset="0x2" />
-    <uint32 name="memory address" offset="0x4"/>
-  </layout>
+	<!-- Tag table entry -->
+	<layout for="tag entry">
+		<int16 name="class index" offset="0x0" />
+		<uint16 name="datum index salt" offset="0x2" />
+		<uint32 name="memory address" offset="0x4"/>
+	</layout>
+	<layout for="matg">
+		<array name="languages" offset="0x1C4" entrySize="0x44" count="12">
+			<uint32 name="string count" offset="0x0" />
+			<uint32 name="locale table size" offset="0x4" />
+			<uint32 name="locale index table offset" offset="0x8" />
+			<uint32 name="locale data index offset" offset="0xC" />
+			<raw name="index table hash" offset="0x10" size="0x14" />
+			<raw name="string data hash" offset="0x24" size="0x14" />
+		</array>
+	</layout>
+	<layout for="locale index table entry">
+		<uint32 name="stringid" offset="0x0" />
+		<uint32 name="offset" offset="0x4" />
+	</layout>
+	<layout for="reflexive">
+		<int32 name="entry count" offset="0x0" />
+		<uint32 name="pointer" offset="0x4" />
+	</layout>
+	<layout for="tag reference">
+		<int32 name="class magic" offset="0x0" />
+		<uint32 name="datum index" offset="0xC" />
+	</layout>
+	<layout for="data reference">
+		<int32 name="size" offset="0x0" />
+		<uint32 name="pointer" offset="0xC" />
+	</layout>
 
-  <layout for="matg">
-    <array name="languages" offset="0x1C4" entrySize="0x44" count="12">
-      <uint32 name="string count" offset="0x0" />
-      <uint32 name="locale table size" offset="0x4" />
-      <uint32 name="locale index table offset" offset="0x8" />
-      <uint32 name="locale data index offset" offset="0xC" />
-      <raw name="index table hash" offset="0x10" size="0x14" />
-      <raw name="string data hash" offset="0x24" size="0x14" />
-    </array>
-  </layout>
-
-  <layout for="locale index table entry">
-    <uint32 name="stringid" offset="0x0" />
-    <uint32 name="offset" offset="0x4" />
-  </layout>
-
-  <layout for="reflexive">
-    <int32 name="entry count" offset="0x0" />
-    <uint32 name="pointer" offset="0x4" />
-  </layout>
-
-  <layout for="tag reference">
-    <int32 name="class magic" offset="0x0" />
-    <uint32 name="datum index" offset="0xC" />
-  </layout>
-
-  <layout for="data reference">
-    <int32 name="size" offset="0x0" />
-    <uint32 name="pointer" offset="0xC" />
-  </layout>
-
-	<!-- Scenario meta (4 garrett frum boxxy) -->
+	<!-- unic (multilingual_unicode_string_list) -->
+	<layout for="unic">
+		<array name="language ranges" offset="0x20" entrySize="0x4" count="12">
+			<int16 name="range start index" offset="0x0" />
+			<int16 name="range size" offset="0x2" />
+		</array>
+	</layout>
+	
+	<!-- scnr (scenario) -->
 	<layout for="scnr">
 		<int32 name="number of script objects" offset="0xB0" />
 		<uint32 name="script object table address" offset="0xB4" />
@@ -113,12 +116,12 @@
 		<uint32 name="script expression table address" offset="0x4a8" />		
 	</layout>
 
+	<!-- Script Stuff -->
 	<layout for="script object entry" size="0x24">
 		<asciiz name="name" offset="0x0" />
 		<int16 name="type" offset="0x20" />
 		<int16 name="placement index" offset="0x22" />
 	</layout>
-
 	<layout for="script entry" size="0x34">
 		<asciiz name="name" offset="0x0" />
 		<int16 name="execution type" offset="0x20" />
@@ -128,18 +131,15 @@
 		<uint32 name="address of parameter list" offset="0x2C" />
 		<uint32 name="unknown" offset="0x30" />
 	</layout>
-
-  <layout for="script parameter entry" size="0x24">
+	<layout for="script parameter entry" size="0x24">
 		<asciiz name="name" offset="0x0" />
 		<int16 name="type" offset="0x20" />
 	</layout>
-
 	<layout for="script global entry" size="0x28">
 		<asciiz name="name" offset="0x0" />
 		<int16 name="type" offset="0x20" />
 		<uint32 name="expression index" offset="0x24" />
 	</layout>
-
 	<layout for="script expression entry" size="0x18">
 		<uint16 name="datum index salt" offset="0x0" />
 		<uint16 name="opcode" offset="0x2" />
@@ -151,11 +151,62 @@
 		<int16 name="source line" offset="0x14" />
 	</layout>
 	
-  <!-- unic (multilingual_unicode_string_list) -->
-  <layout for="unic">
-    <array name="language ranges" offset="0x20" entrySize="0x4" count="12">
-      <int16 name="range start index" offset="0x0" />
-      <int16 name="range size" offset="0x2" />
-    </array>
-  </layout>
+	<!-- zone (cache_file_resource_gestalt) -->
+	<layout for="resource gestalt">
+		<int32 name="number of resources" offset="0x58" />
+		<uint32 name="resource table address" offset="0x5C" />
+	</layout>
+	<layout for="resource table entry" size="0x40">
+		<int32 name="parent tag class magic" offset="0x0" />
+		<uint32 name="parent tag datum index" offset="0xC" />
+		<uint16 name="datum index salt" offset="0x10" />
+		<sbyte name="resource type index" offset="0x12" />
+		<int16 name="segment index" offset="0x22" />
+	</layout>
+
+	<!-- play (cache_file_resource_layout_table) -->
+	<layout for="resource layout table">
+		<int32 name="number of external cache files" offset="0xC" />
+		<uint32 name="external cache file table address" offset="0x10" />
+
+		<int32 name="number of raw pages" offset="0x18" />
+		<uint32 name="raw page table address" offset="0x1C" />
+
+		<int32 name="number of raw segments" offset="0x30" />
+		<uint32 name="raw segment table address" offset="0x34" />
+	</layout>
+	<layout for="external cache file table entry" size="0x108">
+		<asciiz name="map path" offset="0x0" />
+	</layout>
+	<layout for="raw page table entry" size="0x58">
+		<int16 name="shared cache file index" offset="0x4" />
+		<int32 name="compressed block offset" offset="0x8" />
+		<int32 name="compressed block size" offset="0xC" />
+		<int32 name="uncompressed block size" offset="0x10" />
+	</layout>
+	<layout for="raw segment table entry" size="0x10">
+		<int16 name="primary page index" offset="0x0" />
+		<int16 name="secondary page index" offset="0x2" />
+		<int32 name="primary offset" offset="0x4" />
+		<int32 name="secondary offset" offset="0x8" />
+	</layout>
+	
+	<!-- snd! (sound)-->
+	<layout for="sound">
+		<int16 name="flags" offset="0x0" />
+		<byte name="sound class" offset="0x2" />
+		<byte name="sample rate" offset="0x3" />
+		<byte name="encoding" offset="0x4" />
+		<byte name="codec index" offset="0x5" />
+		<int16 name="playback index" offset="0x6" />
+		<byte name="permutation chunk count" offset="0x8" />
+		<int16 name="first pitch range index" offset="0xC" />
+		<byte name="pitch range index" offset="0xE" />
+		<byte name="scale index" offset="0xF" />
+		<byte name="promotion index" offset="0x10" />
+		<byte name="custom playback index" offset="0x11" />
+		<int16 name="extra info index" offset="0x12" />
+		<uint32 name="resource datum index" offset="0x18" />
+		<int32 name="max playtime" offset="0x1C" />
+	</layout>
 </layouts>

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Blamite.Blam.Resources
+﻿namespace Blamite.Blam.Resources
 {
     /// <summary>
     /// A resource in a cache file.

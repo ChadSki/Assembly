@@ -21,11 +21,14 @@
 
             </TabItem>
             <TabItem x:Name="tabMetaEditor" Style="{DynamicResource MetroTabControlBottom}" Header="meta editor" Height="21" VerticalAlignment="Top">
-                
-            </TabItem>
-            <TabItem x:Name="tabPluginEditor" Style="{DynamicResource MetroTabControlBottom}" Header="plugin editor">
 
-            </TabItem>
-        </TabControl>
+			</TabItem>
+			<TabItem x:Name="tabSound" Style="{DynamicResource MetroTabControlBottom}" Header="sounds">
+
+			</TabItem>
+			<TabItem x:Name="tabPluginEditor" Style="{DynamicResource MetroTabControlBottom}" Header="plugin editor">
+
+			</TabItem>
+		</TabControl>
     </Grid>
 </UserControl>

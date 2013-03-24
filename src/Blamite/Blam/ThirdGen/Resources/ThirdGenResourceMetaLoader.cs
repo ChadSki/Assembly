@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Blamite.Blam.Resources;
 using Blamite.Blam.Resources.Models;
+using Blamite.Blam.Resources.Sounds;
 using Blamite.Blam.ThirdGen.Resources.Models;
+using Blamite.Blam.ThirdGen.Resources.Sounds;
 using Blamite.Flexibility;
 using Blamite.IO;
 using Blamite.Util;
@@ -26,11 +25,16 @@ namespace Blamite.Blam.ThirdGen.Resources
         {
             get { return _buildInfo.HasLayout("render model"); }
         }
+		public bool SupportsSounds
+		{
+			get { return _buildInfo.HasLayout("sound"); }
+		}
+
 
         public IRenderModel LoadRenderModelMeta(ITag modeTag, IReader reader)
         {
             if (modeTag.MetaLocation == null || modeTag.Class == null || modeTag.Class.Magic != ModeMagic)
-                throw new ArgumentException("modeTag does not point to metadata for a renderable model");
+                throw new ArgumentException("modeTag does not point to metadata for a renderable model.");
 
             if (!SupportsRenderModels)
                 throw new NotSupportedException("Render model metadata loading is not supported for the cache file's engine.");
@@ -40,7 +44,21 @@ namespace Blamite.Blam.ThirdGen.Resources
             var values = StructureReader.ReadStructure(reader, layout);
             return new ThirdGenRenderModel(values, reader, _metaArea, _buildInfo);
         }
+		public ISound LoadSoundMeta(ITag sndTag, IReader reader)
+		{
+			if (sndTag.MetaLocation == null || sndTag.Class == null || sndTag.Class.Magic != SndMagic)
+				throw new ArgumentException("sndTag does not point to metadata for a sound.");
 
-        private static int ModeMagic = CharConstant.FromString("mode");
-    }
+			if (!SupportsSounds)
+				throw new NotSupportedException("Sound metadata loading is not supported for the cache file's engine.");
+
+			reader.SeekTo(sndTag.MetaLocation.AsOffset());
+			var layout = _buildInfo.GetLayout("sound");
+			var values = StructureReader.ReadStructure(reader, layout);
+			return new ThirdGenSound(values, reader, _metaArea, _buildInfo);
+		}
+
+        private static readonly int ModeMagic = CharConstant.FromString("mode");
+	    private static readonly int SndMagic = CharConstant.FromString("snd!");
+	}
 }

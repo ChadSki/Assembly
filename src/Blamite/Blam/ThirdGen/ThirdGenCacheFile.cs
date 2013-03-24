@@ -16,18 +16,13 @@
  * along with ExtryzeDLL.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Blamite.Blam.Resources;
 using Blamite.Blam.ThirdGen.Resources;
 using Blamite.Blam.ThirdGen.Structures;
 using Blamite.Blam.Util;
 using Blamite.Flexibility;
 using Blamite.IO;
-using Blamite.Util;
 
 namespace Blamite.Blam.ThirdGen
 {

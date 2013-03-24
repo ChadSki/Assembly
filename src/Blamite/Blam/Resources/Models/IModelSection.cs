@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Blamite.Blam.Resources.Models
+﻿namespace Blamite.Blam.Resources.Models
 {
     /// <summary>
     /// Types of extra per-vertex elements that a model section can have.

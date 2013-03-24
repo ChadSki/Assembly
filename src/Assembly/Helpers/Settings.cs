@@ -245,6 +245,7 @@ namespace Assembly.Helpers
             //Ident,
             //String,
             MetaEditor,
+			Audio,
             PluginEditor
         }
         public class RecentFileEntry

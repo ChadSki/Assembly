@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Text;
 using Blamite.IO;
 
 namespace Blamite.Blam.Resources
@@ -13,7 +10,7 @@ namespace Blamite.Blam.Resources
     /// </summary>
     public class ResourcePageExtractor
     {
-        private FileSegment _rawTable;
+        private readonly FileSegment _rawTable;
 
         /// <summary>
         /// Creates a new ResourcePageExtractor which can extract resource pages from a cache file.
@@ -41,7 +38,7 @@ namespace Blamite.Blam.Resources
                     break;
 
                 case ResourcePageCompression.Deflate:
-                    DeflateStream deflate = new DeflateStream(inStream, CompressionMode.Decompress, true);
+                    var deflate = new DeflateStream(inStream, CompressionMode.Decompress, true);
                     StreamUtil.Copy(deflate, outStream, page.UncompressedSize);
                     break;
 

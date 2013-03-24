@@ -222,6 +222,9 @@
     <Compile Include="Metro\Controls\PageTemplates\Games\Components\Editors\LocaleEditor.xaml.cs">
       <DependentUpon>LocaleEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Metro\Controls\PageTemplates\Games\Components\Editors\SoundEditor.xaml.cs">
+      <DependentUpon>SoundEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Metro\Controls\PageTemplates\Games\Components\Editors\StringEditor.xaml.cs">
       <DependentUpon>StringEditor.xaml</DependentUpon>
     </Compile>
@@ -641,6 +644,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Metro\Controls\PageTemplates\Games\Components\Editors\LocaleEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Metro\Controls\PageTemplates\Games\Components\Editors\SoundEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

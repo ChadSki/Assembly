@@ -75,22 +75,18 @@
       <raw name="string data hash" offset="0x24" size="0x14" />
     </array>
   </layout>
-
   <layout for="locale index table entry">
     <uint32 name="stringid" offset="0x0" />
     <uint32 name="offset" offset="0x4" />
   </layout>
-
   <layout for="reflexive">
     <int32 name="entry count" offset="0x0" />
     <uint32 name="pointer" offset="0x4" />
   </layout>
-
   <layout for="tag reference">
     <int32 name="class magic" offset="0x0" />
     <uint32 name="datum index" offset="0xC" />
   </layout>
-
   <layout for="data reference">
     <int32 name="size" offset="0x0" />
     <uint32 name="pointer" offset="0xC" />
@@ -121,13 +117,11 @@
     <int32 name="number of script expressions" offset="0x518" />
     <uint32 name="script expression table address" offset="0x51C" />
   </layout>
-
   <layout for="script object entry" size="0x8">
     <int32 name="name index" offset="0x0" />
     <int16 name="type" offset="0x4" />
     <int16 name="placement index" offset="0x6" />
   </layout>
-
   <layout for="script entry" size="0x18">
     <int32 name="name index" offset="0x0" />
     <int16 name="execution type" offset="0x4" />
@@ -137,19 +131,16 @@
     <uint32 name="address of parameter list" offset="0x10" />
     <uint32 name="unknown" offset="0x14" />
   </layout>
-
   <layout for="script parameter entry" size="0x24">
     <asciiz name="name" offset="0x0" />
     <int16 name="type" offset="0x20" />
   </layout>
-
   <layout for="script global entry" size="0x28">
     <asciiz name="name" offset="0x0" />
     <int16 name="type" offset="0x20" />
     <uint16 name="unknown" offset="0x22" />
     <uint32 name="expression index" offset="0x24" />
   </layout>
-
   <layout for="script expression entry" size="0x18">
     <uint16 name="datum index salt" offset="0x0" />
     <uint16 name="opcode" offset="0x2" />

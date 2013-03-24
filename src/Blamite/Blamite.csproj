@@ -70,6 +70,8 @@
     <Compile Include="Blam\Resources\Models\ModelReader.cs" />
     <Compile Include="Blam\Resources\Models\VertexBufferReader.cs" />
     <Compile Include="Blam\Resources\ResourcePageExtractor.cs" />
+    <Compile Include="Blam\Resources\Sounds\ISound.cs" />
+    <Compile Include="Blam\Resources\Sounds\SoundReader.cs" />
     <Compile Include="Blam\SecondGen\MetaOffsetConverter.cs" />
     <Compile Include="Blam\SecondGen\SecondGenResourceMetaLoader.cs" />
     <Compile Include="Blam\TagTable.cs" />
@@ -83,6 +85,7 @@
     <Compile Include="Blam\ThirdGen\Resources\Models\ThirdGenModelSubmesh.cs" />
     <Compile Include="Blam\ThirdGen\Resources\Models\ThirdGenModelVertexGroup.cs" />
     <Compile Include="Blam\ThirdGen\Resources\Models\ThirdGenRenderModel.cs" />
+    <Compile Include="Blam\ThirdGen\Resources\Sounds\ThirdGenSound.cs" />
     <Compile Include="Blam\ThirdGen\Resources\ThirdGenCacheFileReference.cs" />
     <Compile Include="Blam\ThirdGen\Resources\ThirdGenResourceMetaLoader.cs" />
     <Compile Include="Blam\ThirdGen\Resources\ThirdGenResourcePage.cs" />
