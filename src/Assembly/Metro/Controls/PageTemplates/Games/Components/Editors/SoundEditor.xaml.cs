@@ -147,6 +147,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.Editors
 
 			using (var cacheReader = new EndianReader(_streamManager.OpenRead(), Endian.BigEndian))
 			{
+				Stream resourceStream = null;
 				foreach (var page in _resourcePages)
 				{
 					if (page == null) continue;
@@ -166,9 +167,12 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.Editors
 						var supportedBuildsPath = Path.Combine(formatsPath, "SupportedBuilds.xml");
 						var _layoutLoader = new BuildInfoLoader(supportedBuildsPath, formatsPath);
 
-						var resourceStream = new FileStream(@"A:\Xbox\Games\Halo 3\Maps\Clean\" + resourceMapName + ".map", FileMode.Open);
-						resourceReader = new EndianReader(resourceStream, Endian.BigEndian);
-						resourceCache = CacheFileLoader.LoadCacheFile(resourceReader, _layoutLoader);
+						if (resourceStream == null)
+						{
+							resourceStream = new FileStream(@"A:\Xbox\Games\Halo 3\Maps\Clean\" + resourceMapName + ".map", FileMode.Open);
+							resourceReader = new EndianReader(resourceStream, Endian.BigEndian);
+							resourceCache = CacheFileLoader.LoadCacheFile(resourceReader, _layoutLoader);
+						}
 					}
 
 					var tmpStream = new MemoryStream();

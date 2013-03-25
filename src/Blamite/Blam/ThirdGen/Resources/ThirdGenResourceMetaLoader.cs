@@ -46,7 +46,7 @@ namespace Blamite.Blam.ThirdGen.Resources
         }
 		public ISound LoadSoundMeta(ITag sndTag, IReader reader)
 		{
-			if (sndTag.MetaLocation == null || sndTag.Class == null || sndTag.Class.Magic != SndMagic)
+			if (sndTag.MetaLocation == null || sndTag.Class == null)
 				throw new ArgumentException("sndTag does not point to metadata for a sound.");
 
 			if (!SupportsSounds)

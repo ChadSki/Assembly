@@ -1,10 +1,8 @@
-﻿using System.IO;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using Assembly.Helpers;
 using Assembly.Metro.Controls.PageTemplates.Games.Components.Editors;
 using Blamite.Blam;
-using Blamite.Blam.Resources;
 using Blamite.Flexibility;
 using Blamite.IO;
 using Blamite.RTE;
@@ -67,7 +65,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
             tabPluginEditor.Content = _pluginEditor;
 
 			// Create Raw Tabs
-			if (_cache.ResourceMetaLoader.SupportsSounds)
+			if (_cache.ResourceMetaLoader.SupportsSounds && _tag.RawTag.Class.Magic == CharConstant.FromString("snd!"))
 			{
 				tabSound.Visibility = Visibility.Visible;
 				tabSound.Content = new SoundEditor(_buildInfo, _tag, _tags, _cache, _streamManager, _rteProvider,
@@ -104,7 +102,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 			tabPluginEditor.Content = _pluginEditor;
 
 			// Create Raw Tabs
-			if (_cache.ResourceMetaLoader.SupportsSounds)
+			if (_cache.ResourceMetaLoader.SupportsSounds && _tag.RawTag.Class.Magic == CharConstant.FromString("snd!"))
 			{
 				tabSound.Visibility = Visibility.Visible;
 				tabSound.Content = new SoundEditor(_buildInfo, _tag, _tags, _cache, _streamManager, _rteProvider,
