@@ -5,11 +5,10 @@ namespace Blamite.Blam.Resources.Sounds
 	/// <summary>
 	/// Types of SampleRate that a Sound can have.
 	/// </summary>
-	public enum SampleRate
+	public enum AudioChannel
 	{
-		Mono_22050kbps,
-		Stereo_44100kbps,
-		WMASpecific
+		Mono,
+		Stereo
 	}
 
 	/// <summary>
@@ -33,9 +32,9 @@ namespace Blamite.Blam.Resources.Sounds
 		byte SoundClass { get; }
 		
 		/// <summary>
-		/// Gets the Sample Rate of the Sound.
+		/// Gets the Audio Channel of the Sound.
 		/// </summary>
-		SampleRate SampleRate { get; }
+		AudioChannel AudioChannel { get; }
 
 		/// <summary>
 		/// Gets the Encoding of the Sound.

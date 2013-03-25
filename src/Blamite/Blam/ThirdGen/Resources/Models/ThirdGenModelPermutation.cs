@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Blamite.Blam.Resources.Models;
+﻿using Blamite.Blam.Resources.Models;
 using Blamite.Flexibility;
 
 namespace Blamite.Blam.ThirdGen.Resources.Models

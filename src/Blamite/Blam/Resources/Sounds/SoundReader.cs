@@ -13,8 +13,11 @@ namespace Blamite.Blam.Resources.Sounds
 		/// </summary>
 		/// <param name="reader">The stream to read the sound data from.</param>
 		/// <param name="sound">The sound's metadata.</param>
+		/// <param name="resourceCacheFolder"> </param>
 		/// <param name="buildInfo">Information about the cache file's target engine.</param>
-		public static void ReadSoundData(IReader reader, ISound sound, BuildInformation buildInfo)
+		/// <param name="cacheFile"> </param>
+		/// <param name="resourcePages"> </param>
+		public static void ReadSoundData(IReader reader, ISound sound, ICacheFile cacheFile, IResourcePage[] resourcePages, string resourceCacheFolder, BuildInformation buildInfo)
 		{
 			//sound.
 		}

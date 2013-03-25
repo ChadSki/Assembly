@@ -46,7 +46,7 @@ namespace Blamite.Blam.ThirdGen.Resources
         /// </summary>
         public ResourcePageCompression CompressionMethod
         {
-            get { return ResourcePageCompression.Deflate; }
+			get { return (CompressedSize != UncompressedSize) ? ResourcePageCompression.Deflate : ResourcePageCompression.None; }
         }
 
         private void Load(StructureValueCollection values, ThirdGenCacheFileReference[] externalFiles)

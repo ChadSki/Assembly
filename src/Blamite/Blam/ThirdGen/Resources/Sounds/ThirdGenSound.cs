@@ -1,19 +1,18 @@
 ﻿using Blamite.Blam.Resources.Sounds;
 using Blamite.Flexibility;
-using Blamite.IO;
 
 namespace Blamite.Blam.ThirdGen.Resources.Sounds
 {
 	public class ThirdGenSound : ISound
 	{
-		public ThirdGenSound(StructureValueCollection values, IReader reader, FileSegmentGroup metaArea, BuildInformation buildInfo)
-        {
-            Load(values, reader, metaArea, buildInfo);
-        }
+		public ThirdGenSound(StructureValueCollection values)
+		{
+			Load(values);
+		}
 
 		public byte SoundClass { get; private set; }
 
-		public SampleRate SampleRate { get; private set; }
+		public AudioChannel AudioChannel { get; private set; }
 
 		public Encoding Encoding { get; private set; }
 
@@ -27,10 +26,10 @@ namespace Blamite.Blam.ThirdGen.Resources.Sounds
 
 		public int MaxPlaytime { get; private set; }
 
-		private void Load(StructureValueCollection values, IReader reader, FileSegmentGroup metaArea, BuildInformation buildInfo)
+		private void Load(StructureValueCollection values)
 		{
 			SoundClass = (byte) values.GetInteger("sound class");
-			SampleRate = (SampleRate)values.GetInteger("sample rate");
+			AudioChannel = (AudioChannel)values.GetInteger("audio channel");
 			Encoding = (Encoding)values.GetInteger("encoding");
 			CodecIndex = (byte)values.GetInteger("codec index");
 			PlaybackIndex = (short)values.GetInteger("playback index");

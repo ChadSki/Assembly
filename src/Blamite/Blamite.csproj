@@ -207,6 +207,7 @@
     <Compile Include="RTE\IRTEProvider.cs" />
     <Compile Include="Util\AES.cs" />
     <Compile Include="Util\CharConstant.cs" />
+    <Compile Include="Util\ConcatenatedStream.cs" />
     <Compile Include="Util\FileSystem.cs" />
     <Compile Include="Util\FunctionHelpers.cs" />
     <Compile Include="Util\Half\Half.cs" />
@@ -262,6 +263,9 @@
     </Content>
     <Content Include="Formats\Halo4.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Formats\Halo4_networktest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Formats\LocaleSymbols\Halo3Beta.xml">

@@ -55,7 +55,7 @@ namespace Blamite.Blam.ThirdGen.Resources
 			reader.SeekTo(sndTag.MetaLocation.AsOffset());
 			var layout = _buildInfo.GetLayout("sound");
 			var values = StructureReader.ReadStructure(reader, layout);
-			return new ThirdGenSound(values, reader, _metaArea, _buildInfo);
+			return new ThirdGenSound(values);
 		}
 
         private static readonly int ModeMagic = CharConstant.FromString("mode");

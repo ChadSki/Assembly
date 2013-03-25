@@ -116,7 +116,7 @@
 		<uint32 name="script expression table address" offset="0x4a8" />		
 	</layout>
 
-	<!-- Script Stuff -->
+	<!-- Scripts -->
 	<layout for="script object entry" size="0x24">
 		<asciiz name="name" offset="0x0" />
 		<int16 name="type" offset="0x20" />
@@ -195,7 +195,7 @@
 	<layout for="sound">
 		<int16 name="flags" offset="0x0" />
 		<byte name="sound class" offset="0x2" />
-		<byte name="sample rate" offset="0x3" />
+		<byte name="audio channel" offset="0x3" />
 		<byte name="encoding" offset="0x4" />
 		<byte name="codec index" offset="0x5" />
 		<int16 name="playback index" offset="0x6" />
