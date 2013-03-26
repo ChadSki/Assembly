@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Blamite.Blam.Resources;
+﻿using Blamite.Blam.Resources;
 using Blamite.Blam.ThirdGen.Structures;
 using Blamite.Flexibility;
 
@@ -59,15 +55,15 @@ namespace Blamite.Blam.ThirdGen.Resources
             get { return (_segment != null) ? _segment.SecondaryOffset : -1; }
         }
 
-        private void Load(StructureValueCollection values, ushort index, ThirdGenTagTable tags, ThirdGenResourceLayoutTable layoutInfo)
+        private void Load(StructureValueCollection values, ushort index, TagTable tags, ThirdGenResourceLayoutTable layoutInfo)
         {
             Index = new DatumIndex((ushort)values.GetInteger("datum index salt"), index);
 
-            DatumIndex tagIndex = new DatumIndex(values.GetInteger("parent tag datum index"));
+            var tagIndex = new DatumIndex(values.GetInteger("parent tag datum index"));
             if (tagIndex.IsValid)
                 ParentTag = tags[tagIndex.Index];
 
-            int segmentIndex = (int)values.GetInteger("segment index");
+            var segmentIndex = (int)values.GetInteger("segment index");
             if (segmentIndex >= 0 && segmentIndex < layoutInfo.Segments.Length)
                 _segment = layoutInfo.Segments[segmentIndex];
         }

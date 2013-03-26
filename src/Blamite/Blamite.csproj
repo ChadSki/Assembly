@@ -71,6 +71,10 @@
     <Compile Include="Blam\Resources\Models\VertexBufferReader.cs" />
     <Compile Include="Blam\Resources\ResourcePageExtractor.cs" />
     <Compile Include="Blam\Resources\Sounds\ISound.cs" />
+    <Compile Include="Blam\Resources\Sounds\ISoundPermutation.cs" />
+    <Compile Include="Blam\Resources\Sounds\ISoundPlayback.cs" />
+    <Compile Include="Blam\Resources\Sounds\ISoundRawChunk.cs" />
+    <Compile Include="Blam\Resources\Sounds\ISoundResourceGestalt.cs" />
     <Compile Include="Blam\Resources\Sounds\SoundReader.cs" />
     <Compile Include="Blam\SecondGen\MetaOffsetConverter.cs" />
     <Compile Include="Blam\SecondGen\SecondGenResourceMetaLoader.cs" />
@@ -86,6 +90,10 @@
     <Compile Include="Blam\ThirdGen\Resources\Models\ThirdGenModelVertexGroup.cs" />
     <Compile Include="Blam\ThirdGen\Resources\Models\ThirdGenRenderModel.cs" />
     <Compile Include="Blam\ThirdGen\Resources\Sounds\ThirdGenSound.cs" />
+    <Compile Include="Blam\ThirdGen\Resources\Sounds\ThirdGenSoundPermutation.cs" />
+    <Compile Include="Blam\ThirdGen\Resources\Sounds\ThirdGenSoundPlayback.cs" />
+    <Compile Include="Blam\ThirdGen\Resources\Sounds\ThirdGenSoundRawChunk.cs" />
+    <Compile Include="Blam\ThirdGen\Resources\Sounds\ThirdGenSoundResourceGestalt.cs" />
     <Compile Include="Blam\ThirdGen\Resources\ThirdGenCacheFileReference.cs" />
     <Compile Include="Blam\ThirdGen\Resources\ThirdGenResourceMetaLoader.cs" />
     <Compile Include="Blam\ThirdGen\Resources\ThirdGenResourcePage.cs" />

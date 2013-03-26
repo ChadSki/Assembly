@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Blamite.Blam.Resources;
 using Blamite.Blam.ThirdGen.Structures;
 using Blamite.Blam.Util;
@@ -46,8 +43,8 @@ namespace Blamite.Blam.ThirdGen.Resources
 
         private void LoadResources(StructureValueCollection values, IReader reader, FileSegmentGroup metaArea, BuildInformation buildInfo, ThirdGenTagTable tags, ThirdGenResourceLayoutTable layoutInfo)
         {
-            int count = (int)values.GetInteger("number of resources");
-            uint address = values.GetInteger("resource table address");
+            var count = (int)values.GetInteger("number of resources");
+            var address = values.GetInteger("resource table address");
             var layout = buildInfo.GetLayout("resource table entry");
             var entries = ReflexiveReader.ReadReflexive(reader, count, address, layout, metaArea);
 

@@ -44,9 +44,9 @@ namespace Blamite.Blam.ThirdGen.Resources
             var values = StructureReader.ReadStructure(reader, layout);
             return new ThirdGenRenderModel(values, reader, _metaArea, _buildInfo);
         }
-		public ISound LoadSoundMeta(ITag sndTag, IReader reader)
+		public ISound LoadSoundMeta(ITag ughTag, ITag sndTag, IReader reader)
 		{
-			if (sndTag.MetaLocation == null || sndTag.Class == null)
+			if (sndTag.MetaLocation == null || sndTag.Class == null || sndTag.Class.Magic != SndMagic)
 				throw new ArgumentException("sndTag does not point to metadata for a sound.");
 
 			if (!SupportsSounds)
@@ -59,6 +59,7 @@ namespace Blamite.Blam.ThirdGen.Resources
 		}
 
         private static readonly int ModeMagic = CharConstant.FromString("mode");
-	    private static readonly int SndMagic = CharConstant.FromString("snd!");
+		private static readonly int SndMagic = CharConstant.FromString("snd!");
+		private static readonly int UghMagic = CharConstant.FromString("ugh!");
 	}
 }

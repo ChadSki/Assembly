@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Blamite.Blam.Util;
 using Blamite.Flexibility;
 using Blamite.IO;
@@ -28,8 +25,8 @@ namespace Blamite.Blam.ThirdGen.Resources
 
         private void LoadFileReferences(StructureValueCollection values, IReader reader, FileSegmentGroup metaArea, BuildInformation buildInfo)
         {
-            int count = (int)values.GetInteger("number of external cache files");
-            uint address = values.GetInteger("external cache file table address");
+            var count = (int)values.GetInteger("number of external cache files");
+			var address = values.GetInteger("external cache file table address");
             var layout = buildInfo.GetLayout("external cache file table entry");
             var entries = ReflexiveReader.ReadReflexive(reader, count, address, layout, metaArea);
 
@@ -39,8 +36,8 @@ namespace Blamite.Blam.ThirdGen.Resources
 
         private void LoadPageInfo(StructureValueCollection values, IReader reader, FileSegmentGroup metaArea, BuildInformation buildInfo, ThirdGenCacheFileReference[] fileReferences)
         {
-            int count = (int)values.GetInteger("number of raw pages");
-            uint address = values.GetInteger("raw page table address");
+			var count = (int)values.GetInteger("number of raw pages");
+			var address = values.GetInteger("raw page table address");
             var layout = buildInfo.GetLayout("raw page table entry");
             var entries = ReflexiveReader.ReadReflexive(reader, count, address, layout, metaArea);
 
@@ -50,8 +47,8 @@ namespace Blamite.Blam.ThirdGen.Resources
 
         private void LoadSegments(StructureValueCollection values, IReader reader, FileSegmentGroup metaArea, BuildInformation buildInfo, ThirdGenResourcePage[] pages)
         {
-            int count = (int)values.GetInteger("number of raw segments");
-            uint address = values.GetInteger("raw segment table address");
+			var count = (int)values.GetInteger("number of raw segments");
+			var address = values.GetInteger("raw segment table address");
             var layout = buildInfo.GetLayout("raw segment table entry");
             var entries = ReflexiveReader.ReadReflexive(reader, count, address, layout, metaArea);
 
