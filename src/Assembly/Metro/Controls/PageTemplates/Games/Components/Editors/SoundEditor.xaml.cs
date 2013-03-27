@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Media;
+using System.Windows.Controls;
 using Assembly.Helpers;
 using Blamite.Blam;
 using Blamite.Blam.Resources;
 using Blamite.Flexibility;
 using Blamite.IO;
-using Blamite.RTE;
-using Blamite.Util;
 using Blamite.Blam.Resources.Sounds;
 using Assembly.Metro.Dialogs;
 using System.ComponentModel;
@@ -22,15 +23,11 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.Editors
 	public partial class SoundEditor : INotifyPropertyChanged
 	{
 		private readonly TagEntry _tag;
-        private BuildInformation _buildInfo;
         private readonly ICacheFile _cache;
 	    private readonly IStreamManager _streamManager;
-	    private IRTEProvider _rteProvider;
-        private Trie _stringIDTrie;
-	    private TagHierarchy _tags;
 
-		private ObservableCollection<string> _permutations = new ObservableCollection<string>();
-		public ObservableCollection<string> Permutations
+		private ObservableCollection<ViewPermutation> _permutations = new ObservableCollection<ViewPermutation>();
+		public ObservableCollection<ViewPermutation> Permutations
 		{
 			get { return _permutations; }
 			set 
@@ -39,23 +36,30 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.Editors
 				NotifyPropertyChanged("Permutations");
 			}
 		}
+		public class ViewPermutation
+		{
+			public string Name { get; set; }
+			public int Index { get; set; }
+			public ISoundPermutation SoundPermutation { get; set; }
+		}
 
 		private readonly ISound _sound;
 		private readonly IResourceTable _resourceTable;
 		private readonly IResource _resource;
 		private readonly IResourcePage[] _resourcePages;
+		private readonly ISoundResourceGestalt _soundResourceGestalt;
+		private readonly Dictionary<int, ISoundPermutation> _soundPermutations;
 
-		public SoundEditor(BuildInformation buildInfo, TagEntry tag, TagHierarchy tags, ICacheFile cache, IStreamManager streamManager, IRTEProvider rteProvider, Trie stringIDTrie)
+		private MediaElement _mediaElement;
+
+		public SoundEditor(TagEntry tag, ICacheFile cache, IStreamManager streamManager)
 		{
 			InitializeComponent();
 
             _tag = tag;
-	        _tags = tags;
-            _buildInfo = buildInfo;
             _cache = cache;
 	        _streamManager = streamManager;
-	        _rteProvider = rteProvider;
-            _stringIDTrie = stringIDTrie;
+			_mediaElement = new MediaElement();
 
 			// Set Tagname
 			lblTagName.Text = tag.TagFileName;
@@ -67,6 +71,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.Editors
 				{
 					using (var reader = new EndianReader(stream, Endian.BigEndian))
 					{
+						_soundResourceGestalt = _cache.LoadSoundResourceGestalt(reader);
 						_sound = _cache.ResourceMetaLoader.LoadSoundMeta(_tag.RawTag, reader);
 						_resourceTable = _cache.LoadResourceTable(reader);
 						_resource = _resourceTable[_sound.ResourceIndex];
@@ -79,7 +84,18 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.Editors
 				}
 
 				// Permutations
-				Permutations.Add(_tag.TagFileName.Remove(0, _tag.TagFileName.LastIndexOf('\\') + 1));
+				var playback = _soundResourceGestalt.SoundPlaybacks[_sound.PlaybackIndex];
+				_soundPermutations = new Dictionary<int, ISoundPermutation>();
+				for (var i = playback.FirstPermutationIndex; i < playback.FirstPermutationIndex + playback.EncodedPermutationCount; i++)
+				{
+					_soundPermutations.Add(i, _soundResourceGestalt.SoundPermutations[i]);
+					Permutations.Add(new ViewPermutation
+						                 {
+											Name = _cache.StringIDs.GetString(_soundResourceGestalt.SoundPermutations[i].SoundName),
+											Index = i,
+											SoundPermutation = _soundResourceGestalt.SoundPermutations[i]
+						                 });
+				}
 				lbSoundPermutations.DataContext = Permutations;
 
 				// Load Resource Page 1
@@ -131,17 +147,53 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.Editors
 			}
 		}
 
+		private void btnPlay_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+			var perm = (ViewPermutation)lbSoundPermutations.SelectedValue;
+			var sound = ExtractPerm(perm, false);
+			var xmaConverter = Blamite.Properties.Resources.towav;
+			var tempFile = Path.GetTempFileName();
+			File.WriteAllBytes(tempFile, sound);
+			File.WriteAllBytes(VariousFunctions.GetApplicationLocation() + "towav.exe", xmaConverter);
+
+			VariousFunctions.RunProgramSilently(VariousFunctions.GetApplicationLocation() + "towav.exe",
+			                                    string.Format("\"{0}\"", Path.GetFileName(tempFile)),
+			                                    Path.GetDirectoryName(tempFile));
+
+			var simpleSound = new SoundPlayer(Path.ChangeExtension(tempFile, "wav"));
+			simpleSound.Play();
+		}
+		private void btnStop_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+			if (_mediaElement != null)
+				_mediaElement.Stop();
+		}
 		private void btnExtractSelectedPerm_Click(object sender, System.Windows.RoutedEventArgs e)
 		{
-			var sound = ExtractPerm(false);
+			var perm = (ViewPermutation) lbSoundPermutations.SelectedValue;
+			var sound = ExtractPerm(perm, false);
 
-			if (File.Exists(@"A:\Xbox\Games\Halo 3\Maps\Modded\waste\sound.xma"))
-				File.Delete(@"A:\Xbox\Games\Halo 3\Maps\Modded\waste\sound.xma");
+			if (File.Exists(@"A:\Xbox\Games\Halo 3\Maps\Modded\waste\" + perm.Name + ".xma"))
+				File.Delete(@"A:\Xbox\Games\Halo 3\Maps\Modded\waste\" + perm.Name + ".xma");
 
-			File.WriteAllBytes(@"A:\Xbox\Games\Halo 3\Maps\Modded\waste\sound.xma", sound);
+			File.WriteAllBytes(@"A:\Xbox\Games\Halo 3\Maps\Modded\waste\" + perm.Name + ".xma", sound);
+		}
+		private void btnExtractAllPerms_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+
+		}
+		private void btnExtractRawSound_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+			var name = _tag.TagFileName.Remove(0, _tag.TagFileName.LastIndexOf('\\') + 1);
+			var sound = ExtractPerm();
+
+			if (File.Exists(@"A:\Xbox\Games\Halo 3\Maps\Modded\waste\" + name + ".xma"))
+				File.Delete(@"A:\Xbox\Games\Halo 3\Maps\Modded\waste\" + name + ".xma");
+
+			File.WriteAllBytes(@"A:\Xbox\Games\Halo 3\Maps\Modded\waste\" + name + ".xma", sound);
 		}
 
-		private byte[] ExtractPerm(bool extractRawOnly = true)
+		private byte[] ExtractPerm(ViewPermutation permutation = null, bool extractRawOnly = true)
 		{
 			var outputBytes = new List<byte>();
 
@@ -184,13 +236,29 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.Editors
 					if (bytes.Length > 0)
 						outputBytes.AddRange(new List<byte>(bytes));
 				}
+				if (resourceStream != null) 
+					resourceStream.Close();
+			}
+
+			if (outputBytes.Count == 0)
+				return null;
+
+			// Get Perm from sound
+			if (permutation != null)
+			{
+				var rawChunk = _soundResourceGestalt.SoundRawChunks[permutation.SoundPermutation.RawChunkIndex];
+
+				outputBytes.RemoveRange(0, rawChunk.Offset);
+				outputBytes.RemoveRange(rawChunk.Size, outputBytes.Count - rawChunk.Size);
 			}
 
 			if (extractRawOnly)
 			{
 				return outputBytes.ToArray<byte>();
 			}
-			else if (_sound.Encoding == Encoding.XMA)
+			
+			
+			if (_sound.Encoding == Encoding.XMA)
 			{
 				using (var convertStream = new EndianStream(new MemoryStream(), Endian.BigEndian))
 				{
@@ -211,14 +279,34 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.Editors
 					convertStream.WriteInt32(outputBytes.Count);
 					convertStream.WriteBlock(outputBytes.ToArray());
 
-					// 'xma2' chunk
-					var mono_footer = new byte[] { 
-						0x58, 0x4d, 0x41, 0x32, 0x2c, 0x00, 0x00, 0x00, 0x04, 0x01, 0x00, 0xff, 0x00, 0x00, 0x01, 0x80, 
-						0x00, 0x00, 0x8a, 0x00, 0x00, 0x00, 0xab, 0xD2, 0x00, 0x00, 0x10, 0xd6, 0x00, 0x00, 0x3d, 0x14, 
-						0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x8a, 0x00, 0x00, 0x00, 0x88, 0x80, 0x00, 0x00, 0x00, 0x01, 
-						0x01, 0x00, 0x00, 0x01, 0x73, 0x65, 0x65, 0x6b, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8a, 0x00
-					};
-					convertStream.WriteBlock(mono_footer);
+					// 'xma2' footer
+					switch (_sound.AudioChannel)
+					{
+						case AudioChannel.Mono:
+							{
+								var mono_footer = new byte[]
+									                  {
+										                  0x58, 0x4d, 0x41, 0x32, 0x2c, 0x00, 0x00, 0x00, 0x04, 0x01, 0x00, 0xff, 0x00, 0x00, 0x01, 0x80,
+										                  0x00, 0x00, 0x8a, 0x00, 0x00, 0x00, 0xab, 0xD2, 0x00, 0x00, 0x10, 0xd6, 0x00, 0x00, 0x3d, 0x14,
+										                  0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x8a, 0x00, 0x00, 0x00, 0x88, 0x80, 0x00, 0x00, 0x00, 0x01,
+										                  0x01, 0x00, 0x00, 0x01, 0x73, 0x65, 0x65, 0x6b, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8a, 0x00
+									                  };
+								convertStream.WriteBlock(mono_footer);
+							}
+							break;
+						case AudioChannel.Stereo:
+							{
+								var mono_footer = new byte[]
+									                  {
+										                  0x58, 0x4d, 0x41, 0x32, 0x2c, 0x00, 0x00, 0x00, 0x04, 0x01, 0x00, 0xff, 0x00, 0x00, 0x01, 0x80, 
+														  0x00, 0x01, 0x0f, 0x80, 0x00, 0x00, 0xac, 0x44, 0x00, 0x00, 0x10, 0xd6, 0x00, 0x00, 0x3d, 0x14, 
+														  0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x10, 0x00, 0x00, 0x01, 0x0E, 0x00, 0x00, 0x00, 0x00, 0x01, 
+														  0x02, 0x00, 0x02, 0x01, 0x73, 0x65, 0x65, 0x6b, 0x04, 0x00, 0x00, 0x00, 0x00, 0x01, 0x10, 0x00
+													  };
+								convertStream.WriteBlock(mono_footer);
+							}
+							break;
+					}
 
 					// write length to 'riff' chunk
 					convertStream.Endianness = Endian.LittleEndian;
@@ -229,8 +317,9 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.Editors
 					return VariousFunctions.StreamToByteArray(convertStream.BaseStream);
 				}
 			}
-			else
-				return null;
+
+			// no encoding data, throw
+			throw new NotSupportedException("This encoding stype is not supported.");
 		}
 	}
 }

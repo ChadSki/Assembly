@@ -16,15 +16,15 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
     public partial class MetaContainer
     {
         private TagEntry _tag;
-        private BuildInformation _buildInfo;
-        private ICacheFile _cache;
-	    private IStreamManager _streamManager;
-	    private IRTEProvider _rteProvider;
-        private Trie _stringIDTrie;
-	    private TagHierarchy _tags;
+		private readonly BuildInformation _buildInfo;
+		private readonly ICacheFile _cache;
+		private readonly IStreamManager _streamManager;
+		private readonly IRTEProvider _rteProvider;
+		private readonly Trie _stringIDTrie;
+		private readonly TagHierarchy _tags;
 
 		private MetaInformation _metaInformation;
-		private MetaEditor _metaEditor;
+		private readonly MetaEditor _metaEditor;
 		private PluginEditor _pluginEditor;
 
         #region Public Access
@@ -68,8 +68,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 			if (_cache.ResourceMetaLoader.SupportsSounds && _tag.RawTag.Class.Magic == CharConstant.FromString("snd!"))
 			{
 				tabSound.Visibility = Visibility.Visible;
-				tabSound.Content = new SoundEditor(_buildInfo, _tag, _tags, _cache, _streamManager, _rteProvider,
-														   _stringIDTrie);
+				tabSound.Content = new SoundEditor(_tag, _cache, _streamManager);
 			}
 			else
 			{
@@ -105,8 +104,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components
 			if (_cache.ResourceMetaLoader.SupportsSounds && _tag.RawTag.Class.Magic == CharConstant.FromString("snd!"))
 			{
 				tabSound.Visibility = Visibility.Visible;
-				tabSound.Content = new SoundEditor(_buildInfo, _tag, _tags, _cache, _streamManager, _rteProvider,
-														   _stringIDTrie);
+				tabSound.Content = new SoundEditor(_tag, _cache, _streamManager);
 			}
 			else
 			{

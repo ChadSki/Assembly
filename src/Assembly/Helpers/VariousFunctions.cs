@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
@@ -91,6 +89,28 @@ namespace Assembly.Helpers
 			}
 		}
 
+		/// <summary>
+		/// Silently executes a program and waits for it to finish.
+		/// </summary>
+		/// <param name="path">The path to the program to execute.</param>
+		/// <param name="arguments">Command-line arguments to pass to the program.</param>
+		/// <param name="workingDirectory">The working directory to run in the program in.</param>
+		public static string RunProgramSilently(string path, string arguments, string workingDirectory)
+		{
+			var info = new ProcessStartInfo(path, arguments)
+				           {
+					           CreateNoWindow = true,
+					           RedirectStandardOutput = true,
+					           RedirectStandardError = true,
+					           UseShellExecute = false,
+					           WorkingDirectory = workingDirectory
+				           };
+
+			var proc = Process.Start(info);
+			proc.WaitForExit();
+
+			return proc.StandardError.ReadToEnd();
+		}
 
 
 		public static byte[] StreamToByteArray(Stream input)

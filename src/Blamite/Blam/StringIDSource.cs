@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Blamite.Flexibility;
 
 namespace Blamite.Blam
@@ -39,10 +36,8 @@ namespace Blamite.Blam
         /// <returns>The string if it exists, or null otherwise.</returns>
         public string GetString(StringID id)
         {
-            int index = StringIDToIndex(id);
-            if (index != -1)
-                return GetString(index);
-            return null;
+            var index = StringIDToIndex(id);
+            return index != -1 ? GetString(index) : null;
         }
 
         /// <summary>
@@ -59,10 +54,8 @@ namespace Blamite.Blam
         /// <returns>The stringID corresponding to the string, or StringID.Null if not found.</returns>
         public StringID FindStringID(string str)
         {
-            int index = FindStringIndex(str);
-            if (index != -1)
-                return IndexToStringID(index);
-            return StringID.Null;
+            var index = FindStringIndex(str);
+            return index != -1 ? IndexToStringID(index) : StringID.Null;
         }
 
         /// <summary>

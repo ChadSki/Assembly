@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Blamite.Blam.Resources;
+using Blamite.Blam.Resources.Sounds;
 using Blamite.Blam.SecondGen.Structures;
 using Blamite.Blam.Util;
 using Blamite.Flexibility;
@@ -32,6 +30,12 @@ namespace Blamite.Blam.SecondGen
             // Not supported yet
             return null;
         }
+
+		public ISoundResourceGestalt LoadSoundResourceGestalt(IReader reader)
+		{
+			// Not supported yet
+			return null;
+		}
 
         public void SaveChanges(IStream stream)
         {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Blamite.Blam.Resources.Sounds
+﻿namespace Blamite.Blam.Resources.Sounds
 {
 	/// <summary>
 	/// Types of SampleRate that a Sound can have.
@@ -29,7 +27,7 @@ namespace Blamite.Blam.Resources.Sounds
 		/// <summary>
 		/// Gets the Sound Class of the Sound.
 		/// </summary>
-		byte SoundClass { get; }
+		int SoundClass { get; }
 		
 		/// <summary>
 		/// Gets the Audio Channel of the Sound.
@@ -44,17 +42,17 @@ namespace Blamite.Blam.Resources.Sounds
 		/// <summary>
 		/// Gets the Index of the Codec of the Sound.
 		/// </summary>
-		byte CodecIndex { get; }
+		int CodecIndex { get; }
 
 		/// <summary>
 		/// Gets the Index of the Playback of the Sound.
 		/// </summary>
-		Int16 PlaybackIndex { get; }
+		int PlaybackIndex { get; }
 
 		/// <summary>
 		/// Gets the Permutation Chunk Count of the Sound.
 		/// </summary>
-		byte PermutationChunkCount { get; }
+		int PermutationChunkCount { get; }
 
 		/// <summary>
 		/// Gets the datum index of the Sound.
@@ -65,6 +63,6 @@ namespace Blamite.Blam.Resources.Sounds
 		/// <summary>
 		/// Gets the Max Playtime of the Sound.
 		/// </summary>
-		Int32 MaxPlaytime { get; }
+		int MaxPlaytime { get; }
 	}
 }

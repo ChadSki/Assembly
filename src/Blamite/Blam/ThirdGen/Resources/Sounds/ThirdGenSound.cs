@@ -10,17 +10,17 @@ namespace Blamite.Blam.ThirdGen.Resources.Sounds
 			Load(values);
 		}
 
-		public byte SoundClass { get; private set; }
+		public int SoundClass { get; private set; }
 
 		public AudioChannel AudioChannel { get; private set; }
 
 		public Encoding Encoding { get; private set; }
 
-		public byte CodecIndex { get; private set; }
+		public int CodecIndex { get; private set; }
 
-		public short PlaybackIndex { get; private set; }
+		public int PlaybackIndex { get; private set; }
 
-		public byte PermutationChunkCount { get; private set; }
+		public int PermutationChunkCount { get; private set; }
 
 		public DatumIndex ResourceIndex { get; private set; }
 

@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Blamite.Blam.Resources;
+using Blamite.Blam.Resources.Sounds;
 using Blamite.Blam.Util;
 using Blamite.IO;
 
@@ -17,6 +17,13 @@ namespace Blamite.Blam
         /// <param name="reader">The stream to read the resource table from.</param>
         /// <returns>The resource table that was read, or null if not available or not supported.</returns>
         IResourceTable LoadResourceTable(IReader reader);
+
+		/// <summary>
+		/// Loads the sound resource gestalt from the file.
+		/// </summary>
+		/// <param name="reader">The stream to read the resource table from.</param>
+		/// <returns>The sound resource table that was read, or null if not available or not supported.</returns>
+	    ISoundResourceGestalt LoadSoundResourceGestalt(IReader reader);
 
         /// <summary>
         /// Saves any changes that were made to the file.

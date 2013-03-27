@@ -64,10 +64,10 @@
 				<TextBlock Style="{DynamicResource GenericTextblock}" Text="Permutations;" FontSize="25" Opacity="0.3" />
 				<ListBox x:Name="lbSoundPermutations" Style="{StaticResource MetroBitField}" ScrollViewer.CanContentScroll="True" 
 					ScrollViewer.HorizontalScrollBarVisibility="Auto" ItemsSource="{Binding}" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="{x:Null}" BorderBrush="#FF3C3C3C" Foreground="{x:Null}"
-					VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="100">
+					VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" MinHeight="100" MaxHeight="300">
 					<ListBox.ItemTemplate>
 						<DataTemplate>
-							<TextBlock Text="{Binding}" Foreground="White" />
+							<TextBlock Text="{Binding Name}" Foreground="White" />
 						</DataTemplate>
 					</ListBox.ItemTemplate>
 				</ListBox>
@@ -75,7 +75,7 @@
 
 			<StackPanel Margin="12,20,0,0">
 				<TextBlock Style="{DynamicResource GenericTextblock}" Text="Sound Tools;" FontSize="25" Opacity="0.3" />
-				<Grid HorizontalAlignment="Left" Width="200" Height="100">
+				<Grid HorizontalAlignment="Left" Width="200" Height="120">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition />
 						<ColumnDefinition />
@@ -85,12 +85,15 @@
 						<RowDefinition />
 						<RowDefinition />
 						<RowDefinition />
+						<RowDefinition />
 					</Grid.RowDefinitions>
 
 
+					<Button x:Name="btnExtractRawSound" Grid.ColumnSpan="3" Grid.Row="3" Content="Extract Complete Raw Sound" Click="btnExtractRawSound_Click" />
+					<Button x:Name="btnExtractAllPerms" Grid.ColumnSpan="3" Grid.Row="2" Content="Extract All Permutations" Click="btnExtractAllPerms_Click" />
 					<Button x:Name="btnExtractSelectedPerm" Grid.ColumnSpan="3" Grid.Row="1" Content="Extract Selected Permutation" Click="btnExtractSelectedPerm_Click" />
-					<Button x:Name="btnPlay" Grid.Column="0" Grid.Row="0" Content="Play" />
-					<Button x:Name="btnPause" Grid.Column="2" Grid.Row="0" Content="Pause" />
+					<Button x:Name="btnPlay" Grid.Column="0" Grid.Row="0" Content="Play" Click="btnPlay_Click" />
+					<Button x:Name="btnStop" Grid.Column="2" Grid.Row="0" Content="Stop" Click="btnStop_Click" />
 				</Grid>
 			</StackPanel>
 		</StackPanel>

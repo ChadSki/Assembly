@@ -42,7 +42,7 @@ namespace Blamite.Blam.ThirdGen.Resources.Sounds
 			var entries = ReflexiveReader.ReadReflexive(reader, count, address, layout, metaArea);
 
 			SoundPlaybacks = (from entry in entries
-								 select new ThirdGenSoundPlayback(entry, SoundNames)).ToArray<ISoundPlayback>();
+							  select new ThirdGenSoundPlayback(entry, SoundNames)).ToArray<ISoundPlayback>();
 		}
 		private void LoadSoundPermutations(StructureValueCollection values, IReader reader, FileSegmentGroup metaArea, BuildInformation buildInfo)
 		{

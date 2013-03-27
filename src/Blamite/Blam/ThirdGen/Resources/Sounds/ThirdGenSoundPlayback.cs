@@ -16,7 +16,7 @@ namespace Blamite.Blam.ThirdGen.Resources.Sounds
 
 		public int FirstRuntimePermutationFlagIndex { get; private set; }
 
-		public int EncodedPermutationData { get; private set; }
+		public int EncodedPermutationCount { get; private set; }
 
 		public int FirstPermutationIndex { get; private set; }
 
@@ -25,7 +25,7 @@ namespace Blamite.Blam.ThirdGen.Resources.Sounds
 			SoundName = stringIds[values.GetInteger("sound name index")];
 			ParametersIndex = (int)values.GetInteger("parameters index");
 			FirstRuntimePermutationFlagIndex = (int)values.GetInteger("first runtime permutation flag index");
-			EncodedPermutationData = (int)values.GetInteger("encoded permutation data");
+			EncodedPermutationCount = ((int) values.GetInteger("encoded permutation count") >> 4) & 63; 
 			FirstPermutationIndex = (int)values.GetInteger("first permutation index");
 		}
 	}

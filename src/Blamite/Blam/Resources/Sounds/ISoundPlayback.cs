@@ -10,7 +10,7 @@ namespace Blamite.Blam.Resources.Sounds
 
 		int FirstRuntimePermutationFlagIndex { get; }
 
-		int EncodedPermutationData { get; }
+		int EncodedPermutationCount { get; }
 
 		int FirstPermutationIndex { get; }
 	}
