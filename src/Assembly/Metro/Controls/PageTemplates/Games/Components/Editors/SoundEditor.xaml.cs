@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Media;
-using System.Windows.Controls;
 using Assembly.Helpers;
 using Blamite.Blam;
 using Blamite.Blam.Resources;
@@ -50,7 +49,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.Editors
 		private readonly ISoundResourceGestalt _soundResourceGestalt;
 		private readonly Dictionary<int, ISoundPermutation> _soundPermutations;
 
-		private MediaElement _mediaElement;
+		private SoundPlayer _soundPlayer;
 
 		public SoundEditor(TagEntry tag, ICacheFile cache, IStreamManager streamManager)
 		{
@@ -59,7 +58,6 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.Editors
             _tag = tag;
             _cache = cache;
 	        _streamManager = streamManager;
-			_mediaElement = new MediaElement();
 
 			// Set Tagname
 			lblTagName.Text = tag.TagFileName;
@@ -160,13 +158,13 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.Editors
 			                                    string.Format("\"{0}\"", Path.GetFileName(tempFile)),
 			                                    Path.GetDirectoryName(tempFile));
 
-			var simpleSound = new SoundPlayer(Path.ChangeExtension(tempFile, "wav"));
-			simpleSound.Play();
+			_soundPlayer = new SoundPlayer(Path.ChangeExtension(tempFile, "wav"));
+			_soundPlayer.Play();
 		}
 		private void btnStop_Click(object sender, System.Windows.RoutedEventArgs e)
 		{
-			if (_mediaElement != null)
-				_mediaElement.Stop();
+			if (_soundPlayer != null)
+				_soundPlayer.Stop();
 		}
 		private void btnExtractSelectedPerm_Click(object sender, System.Windows.RoutedEventArgs e)
 		{
@@ -246,7 +244,7 @@ namespace Assembly.Metro.Controls.PageTemplates.Games.Components.Editors
 			// Get Perm from sound
 			if (permutation != null)
 			{
-				var rawChunk = _soundResourceGestalt.SoundRawChunks[permutation.SoundPermutation.RawChunkIndex];
+				var rawChunk = _soundResourceGestalt.SoundRawChunks[permutation.SoundPermutation.RawChunkIndex + 1];
 
 				outputBytes.RemoveRange(0, rawChunk.Offset);
 				outputBytes.RemoveRange(rawChunk.Size, outputBytes.Count - rawChunk.Size);
