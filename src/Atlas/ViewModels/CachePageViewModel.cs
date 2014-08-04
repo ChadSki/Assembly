@@ -19,7 +19,6 @@ using Blamite.RTE;
 using Blamite.RTE.H2Vista;
 using Blamite.Util;
 using Newtonsoft.Json;
-using XBDMCommunicator;
 
 namespace Atlas.ViewModels
 {
@@ -34,8 +33,6 @@ namespace Atlas.ViewModels
 			Singleton = this;
 			CachePage = cachePage;
 			Editors = new ObservableCollection<ICacheEditor>();
-
-			SetupXbdm();
 		}
 
 		#region Properties
@@ -118,12 +115,6 @@ namespace Atlas.ViewModels
 
 		#endregion
 
-		#region Xbox Memory
-
-		private Xbdm XboxDebugManager { get; set; }
-
-		#endregion
-
 		#region UI
 
 		public bool BuildHasEngineMemory
@@ -176,10 +167,6 @@ namespace Atlas.ViewModels
 					{
 						case EngineType.SecondGeneration:
 							RteProvider = new H2VistaRteProvider("halo2.exe");
-							break;
-
-						case EngineType.ThirdGeneration:
-							RteProvider = new XbdmRteProvider(XboxDebugManager);
 							break;
 					}
 
@@ -304,28 +291,6 @@ namespace Atlas.ViewModels
 			SelectedEditor = editor;
 		}
 
-		public void LoadAdvancedMemoryEditor()
-		{
-			var editor = Editors.FirstOrDefault(e => e is AdvancedMemoryEditor);
-			if (editor == null)
-			{
-				editor = new AdvancedMemoryEditor(this);
-				Editors.Add(editor);
-			}
-			SelectedEditor = editor;
-		}
-
-		public void LoadNetworkSessionEditor()
-		{
-			var editor = Editors.FirstOrDefault(e => e is NetworkSessionEditor);
-			if (editor == null)
-			{
-				editor = new NetworkSessionEditor(this);
-				Editors.Add(editor);
-			}
-			SelectedEditor = editor;
-		}
-
 		#endregion
 
 		#region Helpers
@@ -349,72 +314,6 @@ namespace Atlas.ViewModels
 		{
 			var name = _cacheFile.FileNames.GetTagName(tag);
 			return string.IsNullOrWhiteSpace(name) ? tag.Index.ToString() : name;
-		}
-
-		#endregion
-
-		#region XDK
-
-		/// <summary>
-		/// Sets up the Xbox 360 Developer Debug Manager
-		/// </summary>
-		private void SetupXbdm()
-		{
-			if (XboxDebugManager == null || XboxDebugManager.DeviceIdent != App.Storage.Settings.XdkIpAddress)
-				XboxDebugManager = new Xbdm(App.Storage.Settings.XdkIpAddress);
-		}
-
-		public void FreezeConsole()
-		{
-			SetupXbdm();
-			XboxDebugManager.Freeze();
-		}
-
-		public void UnfreezeConsole()
-		{
-			SetupXbdm();
-			XboxDebugManager.Unfreeze();
-		}
-
-		public void RebootConsole(Xbdm.RebootType rebootType)
-		{
-			SetupXbdm();
-			XboxDebugManager.Reboot(rebootType);
-		}
-
-		public byte PeekByte(UInt32 offset)
-		{
-			SetupXbdm();
-			XboxDebugManager.MemoryStream.Flush();
-			XboxDebugManager.MemoryStream.Seek(offset, SeekOrigin.Begin);
-			return (byte)XboxDebugManager.MemoryStream.ReadByte();
-		}
-
-		public byte[] PeekBytes(UInt32 offset, int byteCount)
-		{
-			byte[] buffer = new byte[byteCount];
-
-			SetupXbdm();
-			XboxDebugManager.MemoryStream.Flush();
-			XboxDebugManager.MemoryStream.Seek(offset, SeekOrigin.Begin);
-			XboxDebugManager.MemoryStream.Read(buffer, 0x00, byteCount);
-
-			return buffer;
-		}
-
-		// TODO: make this nicer m8
-		public void PokeByte(UInt32 offset, byte value)
-		{
-			SetupXbdm();
-			XboxDebugManager.MemoryStream.Seek(offset, SeekOrigin.Begin);
-			XboxDebugManager.MemoryStream.WriteByte(value);
-		}
-
-		public void PokeBytes(UInt32 offset, byte[] data)
-		{
-			SetupXbdm();
-			XboxDebugManager.MemoryStream.Seek(offset, SeekOrigin.Begin);
-			XboxDebugManager.MemoryStream.Write(data, 0x00, data.Length);
 		}
 
 		#endregion

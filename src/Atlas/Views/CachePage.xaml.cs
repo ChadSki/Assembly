@@ -14,7 +14,6 @@ using Atlas.Views.Cache;
 using Atlas.Views.Cache.Dialogs;
 using Atlas.Views.Cache.TagEditorComponents.Data;
 using Blamite.Blam.Scripting;
-using XBDMCommunicator;
 
 namespace Atlas.Views
 {
@@ -119,86 +118,6 @@ namespace Atlas.Views
 		}
 
 		#endregion
-
-		#region Xbdm Toolbar
-
-		private void XbdmToolbarFreezeButton_OnClick(object sender, RoutedEventArgs e)
-		{
-			ViewModel.FreezeConsole();
-		}
-
-		private void XbdmToolbarUnfreezeButton_OnClick(object sender, RoutedEventArgs e)
-		{
-			ViewModel.UnfreezeConsole();
-		}
-
-		private void XbdmToolbarScreenshotButton_OnClick(object sender, RoutedEventArgs e)
-		{
-			throw new NotImplementedException();
-		}
-
-		private void XbdmToolbarColdRebootButton_OnClick(object sender, RoutedEventArgs e)
-		{
-			ViewModel.RebootConsole(Xbdm.RebootType.Cold);
-		}
-
-		private void XbdmToolbarTitleRebootButton_OnClick(object sender, RoutedEventArgs e)
-		{
-			ViewModel.RebootConsole(Xbdm.RebootType.Title);
-		}
-
-		private void XbdmToolbarActiveTitleRebootButton_OnClick(object sender, RoutedEventArgs e)
-		{
-			ViewModel.RebootConsole(Xbdm.RebootType.ActiveTitle);
-		}
-
-		#endregion
-
-		#region Xbdm Quick Options
-
-		private void QuickOptionButton_OnClick(object sender, RoutedEventArgs e)
-		{
-			var element = (FrameworkElement)sender;
-			if (element == null) return;
-			var quickOption = element.DataContext as EngineMemory.EngineVersion.QuickOption;
-			if (quickOption == null) return;
-
-			if (quickOption.CarefulMode)
-				if (MetroMessageBox.Show("careful", "this could fuck shit up. are you sure you want to continue?",
-					new List<MetroMessageBox.MessageBoxButton>
-					{
-						MetroMessageBox.MessageBoxButton.Yes,
-						MetroMessageBox.MessageBoxButton.No,
-						MetroMessageBox.MessageBoxButton.Cancel
-					}) != MetroMessageBox.MessageBoxButton.Yes)
-					return;
-
-			byte value = 0x01;
-			if (quickOption.IsToggle)
-			{
-				var toggleButton = element as ToggleButton;
-				if (toggleButton != null && !(toggleButton.IsChecked ?? true))
-					value = 0x00;
-			}
-			ViewModel.PokeByte(quickOption.Address, value);
-		}
-
-		#endregion
-
-		#region Xbdm Sidebar
-
-		private void AdvancedMemoryModificationButton_OnClick(object sender, RoutedEventArgs e)
-		{
-			ViewModel.LoadAdvancedMemoryEditor();
-		}
-
-		private void NetworkSessionButton_OnClick(object sender, RoutedEventArgs e)
-		{
-			ViewModel.LoadNetworkSessionEditor();
-		}
-
-		#endregion
-
 
 		#region Tag Editor Toolbar Buttons
 
