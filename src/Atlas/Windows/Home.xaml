@@ -146,8 +146,6 @@
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="HELP" Foreground="White" FontFamily="{DynamicResource MetroFontLight}">
-                    <MenuItem Header="Check for Updates" />
-                    <Separator />
                     <MenuItem Header="About Assembly" />
                 </MenuItem>
             </Menu>
